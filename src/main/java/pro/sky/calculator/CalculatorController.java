@@ -11,6 +11,9 @@ public class CalculatorController {
 
 
     private final CalculatorService calculatorService;
+    private String lineOutput(Float a, Float b, String operation) {
+        return a + " " + operation + " " + b + " = ";
+    }
 
     public CalculatorController(CalculatorService calculatorService) {
         this.calculatorService = calculatorService;
@@ -29,7 +32,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return num1 + " + " + num2 + " = " + calculatorService.addition(num1, num2);
+            return  lineOutput(num1,num2,"+") + calculatorService.addition(num1, num2);
         }
 
     }
@@ -40,7 +43,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return num1 + " - " + num2 + " = " + calculatorService.subtraction(num1, num2);
+            return  lineOutput(num1,num2,"-") + calculatorService.subtraction(num1, num2);
         }
 
     }
@@ -51,7 +54,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return num1 + " * " + num2 + " = " + calculatorService.multiply(num1, num2);
+            return  lineOutput(num1,num2,"*") + calculatorService.multiply(num1, num2);
         }
     }
 
@@ -63,9 +66,12 @@ public class CalculatorController {
         } else if (Float.compare(num2, 0) == 0) {
             return "Делить на ноль нельзя, попробуйте ввести другое число";
         } else {
-            return num1 + " / " + num2 + " = " + calculatorService.division(num1, num2);
+            return lineOutput(num1,num2,"/") + calculatorService.division(num1, num2);
         }
     }
+
+
+
 }
 
 
