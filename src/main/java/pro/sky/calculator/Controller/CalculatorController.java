@@ -1,29 +1,30 @@
-package pro.sky.calculator;
+package pro.sky.calculator.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.calculator.Service.CalculatorServiceImpl;
 
 @RestController
 @RequestMapping("/calculator")
 public class CalculatorController {
 
 
-    private final CalculatorService calculatorService;
+    private final CalculatorServiceImpl calculatorServiceImpl;
     private String lineOutput(Float a, Float b, String operation) {
         return a + " " + operation + " " + b + " = ";
     }
 
-    public CalculatorController(CalculatorService calculatorService) {
-        this.calculatorService = calculatorService;
+    public CalculatorController(CalculatorServiceImpl calculatorServiceImpl) {
+        this.calculatorServiceImpl = calculatorServiceImpl;
     }
 
 
     @GetMapping
     public String welcome() {
 
-        return calculatorService.welcome();
+        return calculatorServiceImpl.welcome();
     }
 
     @GetMapping(path = "/plus")
@@ -32,7 +33,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return  lineOutput(num1,num2,"+") + calculatorService.addition(num1, num2);
+            return  lineOutput(num1,num2,"+") + calculatorServiceImpl.addition(num1, num2);
         }
 
     }
@@ -43,7 +44,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return  lineOutput(num1,num2,"-") + calculatorService.subtraction(num1, num2);
+            return  lineOutput(num1,num2,"-") + calculatorServiceImpl.subtraction(num1, num2);
         }
 
     }
@@ -54,7 +55,7 @@ public class CalculatorController {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
         } else {
-            return  lineOutput(num1,num2,"*") + calculatorService.multiply(num1, num2);
+            return  lineOutput(num1,num2,"*") + calculatorServiceImpl.multiply(num1, num2);
         }
     }
 
@@ -63,10 +64,8 @@ public class CalculatorController {
                          @RequestParam(value = "num2", required = false) Float num2) {
         if (num1 == null || num2 == null) {
             return "Вы забыли ввести число";
-        } else if (Float.compare(num2, 0) == 0) {
-            return "Делить на ноль нельзя, попробуйте ввести другое число";
         } else {
-            return lineOutput(num1,num2,"/") + calculatorService.division(num1, num2);
+            return lineOutput(num1,num2,"/") + calculatorServiceImpl.division(num1, num2);
         }
     }
 
